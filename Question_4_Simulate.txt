@@ -1,0 +1,54 @@
+════════════════════════════════════════════════════════════
+Question 4: จำลอง - Batch_Crystallizer System
+Controller: PI | Analysis & Design Method: Step Response
+════════════════════════════════════════════════════════════
+
+【 Process Description 】
+
+Supersaturation control via cooling
+
+Transfer Function:
+  G(s) = 1.25*exp(-9.81*s)/((14.25*s+1)*(7.88*s+1))
+
+MATLAB: tf(1.25, conv([14.25 1],[7.88 1]), 'InputDelay', 9.81)
+
+Parameters:
+  • K = 1.25 g per L per degC
+  • tau1 = 14.25 min
+  • tau2 = 7.88 min
+  • theta = 9.81 min
+
+【 Performance Requirements 】
+
+✓ Settling Time (2% band):  <= 142.5 min
+✓ Overshoot:                 <= 18%
+✓ Phase Margin:              >= 50 deg
+✓ Gain Margin:               >= 9 dB
+
+【 Questions 】
+
+1. Create Simulink Model (10 points)
+   • Plant: K/[(tau1*s+1)*(tau2*s+1)] with delay theta
+   • Controller: PI
+   • Reference input (step, ramp)
+   • Load disturbance
+   • Measurement noise (optional)
+   • Actuator saturation (0-100%)
+
+2. Simulate Operation (6 points)
+   Case 1: Setpoint tracking
+     - Step change at t=0
+     - Record rise time, overshoot, settling time
+   Case 2: Load disturbance
+     - Disturbance at t=285
+     - Measure disturbance rejection
+   Case 3: Noise rejection
+     - Add measurement noise
+     - Observe control action
+
+3. Tuning in Simulink (4 points)
+   • Use PID Tuner App
+   • Adjust parameters in real-time
+   • Compare with manual tuning
+   • Export best values
+
